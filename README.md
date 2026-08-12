@@ -24,7 +24,7 @@ Gemini API's free tier.
 
 2. **Create a virtual environment and install dependencies**
    ```bash
-   cd mini_speech_agent
+   cd Cascaded-Voice-Agent
    python -m venv venv
    venv\Scripts\activate        # Windows
    # source venv/bin/activate   # Mac/Linux
