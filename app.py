@@ -25,7 +25,10 @@ st.caption("VAD → ASR (local Whisper) → LLM (Gemini) → TTS (edge-tts)")
 # --- Sidebar: config -------------------------------------------------------
 with st.sidebar:
     st.header("Settings")
-    api_key = st.secrets.get("GEMINI_API_KEY", "")
+    try:
+        api_key = st.secrets.get("GEMINI_API_KEY", "")
+    except Exception:
+        api_key = ""
     if not api_key:
         api_key = st.text_input("Gemini API key", type="password",
                                  help="Get a free key at https://aistudio.google.com/app/apikey")
