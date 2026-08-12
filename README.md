@@ -74,3 +74,5 @@ Gemini API's free tier.
 - CPU-only Whisper on a laptop will have noticeably higher ASR latency
   than a production GPU-backed system. That's expected and worth noting,
   not a bug.
+  <img width="1914" height="912" alt="image" src="https://github.com/user-attachments/assets/cc15a696-135c-4c98-be67-b1eeee173cfc" />
+
