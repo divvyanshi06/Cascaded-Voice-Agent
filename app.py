@@ -76,11 +76,16 @@ st.markdown(
             margin-top: 1rem;
         }
         .metric-card {
-            background: linear-gradient(135deg, rgba(30, 41, 59, 0.9), rgba(15, 23, 42, 0.9));
-            border: 1px solid rgba(148, 163, 184, 0.18);
-            border-radius: 16px;
-            padding: 0.85rem 0.9rem;
-            box-shadow: 0 8px 22px rgba(15, 23, 42, 0.16);
+            flex: 1;
+            background: #18181B;
+            border: 1px solid #27272A;
+            border-radius: 10px;
+            padding: 0.8rem;
+            text-align: center !important;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
         }
         .metric-card .label {
             display: block;
@@ -96,6 +101,15 @@ st.markdown(
             font-size: 1.35rem;
             font-weight: 800;
             color: #f8fbff;
+        }
+        .stExpander {
+            background: #18181B !important;
+            border: 1px solid #27272A !important;
+            border-radius: 10px !important;
+        }
+        section[data-testid="stSidebar"] {
+            background: #0F0F12;
+            border-right: 1px solid #27272A;
         }
         @media (max-width: 700px) {
             .metric-row {
