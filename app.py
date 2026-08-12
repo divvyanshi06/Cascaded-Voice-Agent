@@ -22,27 +22,59 @@ st.set_page_config(page_title="Mini Voice Agent", page_icon="🎙️", layout="c
 st.markdown(
     """
     <style>
+        .hero-card {
+            background: rgba(59, 130, 246, 0.10);
+            border: 1px solid rgba(59, 130, 246, 0.3);
+            border-radius: 16px;
+            padding: 2rem;
+        }
         .main-title {
-            margin: 0 0 0.2rem 0;
-            font-size: 2.3rem;
-            font-weight: 800;
-            letter-spacing: -0.04em;
-            color: #f8fbff;
-            line-height: 1.1;
+            background: linear-gradient(135deg, #3B82F6 0%, #93C5FD 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 0;
         }
         .pipeline-caption {
-            margin: 0 0 1.2rem 0;
-            font-size: 0.96rem;
-            color: #b8c3dc;
+            margin: 0 0 0.9rem 0;
+            font-size: 0.9rem;
+            color: #dfe7ff;
             letter-spacing: 0.02em;
+            opacity: 0.9;
+        }
+        .pipeline-badges {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+            margin-top: 0.4rem;
+        }
+        .pipeline-badge {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 999px;
+            border: 1px solid rgba(59, 130, 246, 0.28);
+            background: rgba(59, 130, 246, 0.10);
+            color: #93C5FD;
+            font-size: 0.73rem;
+            font-weight: 700;
+            letter-spacing: 0.04em;
+            text-transform: uppercase;
+            padding: 0.38rem 0.7rem;
+        }
+        .pipeline-badge.arrow {
+            background: rgba(59, 130, 246, 0.10);
+            border-color: rgba(59, 130, 246, 0.28);
+            color: #93C5FD;
         }
         .stage-card {
-            background: rgba(12, 18, 32, 0.78);
-            border: 1px solid rgba(148, 163, 184, 0.18);
-            border-radius: 16px;
-            padding: 0.9rem 1rem;
-            margin: 0.75rem 0;
-            box-shadow: 0 12px 26px rgba(15, 23, 42, 0.16);
+            background: rgba(59, 130, 246, 0.10);
+            border: 1px solid rgba(59, 130, 246, 0.28);
+            border-radius: 12px;
+            padding: 0.9rem 1.2rem;
+            margin-bottom: 0.6rem;
         }
         .stage-card .label {
             display: block;
@@ -77,9 +109,9 @@ st.markdown(
         }
         .metric-card {
             flex: 1;
-            background: #18181B;
-            border: 1px solid #27272A;
-            border-radius: 10px;
+            background: rgba(59, 130, 246, 0.10);
+            border: 1px solid rgba(59, 130, 246, 0.28);
+            border-radius: 12px;
             padding: 0.8rem;
             text-align: center !important;
             display: flex;
@@ -103,13 +135,40 @@ st.markdown(
             color: #f8fbff;
         }
         .stExpander {
-            background: #18181B !important;
-            border: 1px solid #27272A !important;
-            border-radius: 10px !important;
+            background: rgba(59, 130, 246, 0.10) !important;
+            border: 1px solid rgba(59, 130, 246, 0.28) !important;
+            border-radius: 12px !important;
         }
         section[data-testid="stSidebar"] {
             background: #0F0F12;
-            border-right: 1px solid #27272A;
+            border-right: 1px solid rgba(59, 130, 246, 0.2);
+        }
+        .speak-card {
+            background: rgba(24, 24, 27, 0.96);
+            border: 1px solid #27272A;
+            border-radius: 16px;
+            padding: 0.9rem 1rem 0.7rem 1rem;
+            margin: 0 0 0.75rem 0;
+            box-shadow: 0 12px 26px rgba(15, 23, 42, 0.12);
+        }
+        .speak-header {
+            font-size: 1.25rem;
+            font-weight: 800;
+            color: #f8fbff;
+            letter-spacing: -0.02em;
+            margin-bottom: 0.15rem;
+        }
+        .speak-instruction {
+            color: #bfcfe8;
+            font-size: 0.82rem;
+            opacity: 0.9;
+        }
+        .audio-wrap {
+            background: rgba(24, 24, 27, 0.7);
+            border: 1px solid #27272A;
+            border-radius: 12px;
+            padding: 0.7rem;
+            margin-top: 0.5rem;
         }
         @media (max-width: 700px) {
             .metric-row {
@@ -121,8 +180,24 @@ st.markdown(
     unsafe_allow_html=True,
 )
 
-st.markdown('<div class="main-title">🎙️ Mini Cascaded Voice Agent</div>', unsafe_allow_html=True)
-st.markdown('<div class="pipeline-caption">VAD → ASR (local Whisper) → LLM (Gemini) → TTS (edge-tts)</div>', unsafe_allow_html=True)
+st.markdown(
+    '''
+    <div class="hero-card">
+        <div class="main-title">🎙️ Mini Cascaded Voice Agent</div>
+        <div class="pipeline-caption">Voice pipeline for local speech capture and response</div>
+        <div class="pipeline-badges">
+            <span class="pipeline-badge">VAD</span>
+            <span class="pipeline-badge arrow">→</span>
+            <span class="pipeline-badge">ASR</span>
+            <span class="pipeline-badge arrow">→</span>
+            <span class="pipeline-badge">LLM</span>
+            <span class="pipeline-badge arrow">→</span>
+            <span class="pipeline-badge">TTS</span>
+        </div>
+    </div>
+    ''',
+    unsafe_allow_html=True,
+)
 
 # --- Sidebar: config -------------------------------------------------------
 with st.sidebar:
@@ -156,8 +231,29 @@ def get_asr_model(size):
     return load_asr_model(size)
 
 # --- Main interaction ---------------------------------------------------
+st.markdown(
+    '''
+    <div class="speak-card">
+        <div class="speak-header">Speak</div>
+        <div class="speak-instruction">Click the mic, speak, then stop — your reply plays automatically</div>
+    </div>
+    ''',
+    unsafe_allow_html=True,
+)
 st.subheader("Speak")
+st.markdown(
+    '''
+    <div class="audio-wrap">
+    ''',
+    unsafe_allow_html=True,
+)
 audio_value = st.audio_input("Record your message")
+st.markdown(
+    '''
+    </div>
+    ''',
+    unsafe_allow_html=True,
+)
 
 if audio_value is not None:
     if not api_key:
