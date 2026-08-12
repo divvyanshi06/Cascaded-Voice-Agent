@@ -1,6 +1,7 @@
 # Mini Cascaded Voice Agent
 
 🔗 **Live demo:** https://cascaded-voice-agent.streamlit.app
+
 A working demo of the cascaded voice AI architecture:
 
 ```
